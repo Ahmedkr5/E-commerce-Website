@@ -1,0 +1,4 @@
+FROM java:8
+EXPOSE 8085
+ADD /target/zuulgateway-1.0.jar zuulgateway.jar
+ENTRYPOINT ["java","-jar","zuulgateway.jar"]
