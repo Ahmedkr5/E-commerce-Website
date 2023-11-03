@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+    db:
+      image: mysql:latest
+      container_name: mysqldborder  
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      ports:
+        - "3306:3306"
+        
+      
+    
+  
+    customerservice:                        
+      image: serviceorder        
+      container_name: serviceorder
+      build:
+        context: .                          
+        dockerfile: Dockerfile             
+      ports:
+        - "8089:8089"                     
+
+
+      depends_on:                           
+        - db                              
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysqldborder:3306/order?createDatabaseIfNotExist=true
+        SPRING_DATASOURCE_USERNAME: root
+        MYSQL_ALLOW_EMPTY_PASSWORD: 1
